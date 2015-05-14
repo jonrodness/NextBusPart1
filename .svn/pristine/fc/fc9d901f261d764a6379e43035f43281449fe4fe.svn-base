@@ -1,0 +1,11 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+
+/**
+ * Bus stop information including stop number, description, location (lat/lon),
+ * bus routes serving this stop, estimated wait times for buses serving this stop
+ * and bus locations for buses serving this stop.
+ */
+public class BusStop {
+	
+}

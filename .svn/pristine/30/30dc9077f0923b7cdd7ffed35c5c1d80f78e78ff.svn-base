@@ -1,0 +1,82 @@
+package ca.ubc.cpsc210.nextbus.translink;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+
+import ca.ubc.cpsc210.nextbus.model.BusLocation;
+import ca.ubc.cpsc210.nextbus.model.BusRoute;
+import ca.ubc.cpsc210.nextbus.model.BusStop;
+
+/**
+ * XML parser for bus location information received from Translink service.
+ */
+public class BusLocationParser extends AbstractTranslinkParser {
+	private BusStop busStop;
+	private StringBuffer accumulator = new StringBuffer();
+	private BusLocation busLocation;
+	private BusRoute route;
+	private String routeName;
+	private String latitude;
+	private String longitude;
+	private String destination;
+	private String time;
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param busStop  the bus stop to which bus location information will be added
+	 */
+	public BusLocationParser(BusStop busStop) {
+		this.busStop = busStop;
+	}
+	
+	@Override
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) throws SAXException {
+		System.out.println("Start Element: " + qName);
+		accumulator.setLength(0);
+	}
+	
+	@Override
+	public void endDocument() throws SAXException {
+		super.endDocument();
+	}
+	
+	
+	@Override
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+		System.out.println("EndElement: " + qName + " value: " + accumulator.toString().trim());
+		if (qName.equalsIgnoreCase("Bus")) {
+			routeName = new String(accumulator);
+			route = new BusRoute (routeName);
+		}
+		
+		if (qName.equalsIgnoreCase("Latitude")) {
+			latitude = new String(accumulator);
+		}
+		if (qName.equalsIgnoreCase("Longitude")) {
+			longitude = new String(accumulator);
+		}
+		if (qName.equalsIgnoreCase("Destination")){
+			destination = new String(accumulator);
+		}
+		if (qName.equalsIgnoreCase("RecordedTime")){
+			time = new String(accumulator);
+		}
+		if (qName.equalsIgnoreCase("Bus")){
+			busLocation = new BusLocation(route, Double.parseDouble(latitude), 
+					Double.parseDouble(longitude), destination, time);
+			busStop.addBusLocation(busLocation);
+		}	
+	}
+			
+			
+
+	
+	@Override
+	public void characters(char[] ch, int start, int length)
+			throws SAXException {
+		accumulator.append(ch, start, length);
+	}
+}

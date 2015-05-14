@@ -1,0 +1,50 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+import ca.ubc.cpsc210.nextbus.util.LatLon;
+
+
+/**
+ * Bus location information for a bus serving a particular stop, including route, position (lat/lon),
+ * destination, time at which location was last updated.
+ */ 
+public class BusLocation {
+	
+	private BusRoute route;
+	private LatLon latlon;
+	private java.lang.String destination;
+	private java.lang.String time;
+	
+	
+	public BusLocation(BusRoute route, double lat, double lon, java.lang.String dest, java.lang.String time) {
+		this.route = route;
+		this.latlon = new LatLon(lat, lon);
+		this.destination = dest;
+		this.time = time;
+	}
+		
+	public BusRoute getRoute() {
+	// STUB
+		return new BusRoute();
+	}
+	
+	public LatLon getLatLon() {
+		// STUB
+		return null;
+	}
+	
+	public java.lang.String getDestination() {
+		// STUB
+		return null;
+	}
+	
+	public java.lang.String getTime() {
+		// STUB
+		return null;
+	}
+	
+	public java.lang.String getDescription() {
+		// STUB
+		return null;
+	}
+	
+}

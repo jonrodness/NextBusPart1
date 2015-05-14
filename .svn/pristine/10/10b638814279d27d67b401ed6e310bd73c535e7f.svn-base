@@ -1,0 +1,91 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+import java.util.List;
+
+import ca.ubc.cpsc210.nextbus.util.BoundingBox;
+import ca.ubc.cpsc210.nextbus.util.Segment;
+
+
+/**
+ * A bus route
+ */
+public class BusRoute implements Comparable<BusRoute> {
+	private String name;
+
+	
+	public BusRoute() {
+		// CONSTRUCTOR
+	}
+	
+	public BusRoute(java.lang.String name) {
+		// CONSTRUCTOR
+	}
+	
+	
+	public java.lang.String getName() {
+		return null; // STUB
+	}
+	
+	public void setName(java.lang.String name) {
+		// STUB
+	}
+	
+	public java.lang.String getMapURL() {
+		return null; // STUB
+	}
+	
+	public void setMapURL(java.lang.String mapURL) {
+		// STUB
+	}
+	
+	public void setBounds(double north, double south, double east, double west) {
+		// STUB
+	}
+	
+	public BoundingBox getBounds() {
+		return null;
+	}
+	
+	public void addSegment(Segment seg) {
+		// STUB
+	}
+	
+	public boolean hasSegments() {
+		// STUB
+		return false;
+	}
+	
+	public java.util.List<Segment> getSegments() {
+		// STUB
+		return null;
+	}
+	
+	@Override
+	public java.lang.String toString() {
+		// STUB
+		return null;
+	}
+	
+	@Override
+	public int hashCode() {
+		// STUB
+		return 0;
+	}
+	
+	@Override
+	public boolean equals(java.lang.Object obj) {
+		// STUB
+		return false;
+	}
+	
+	
+	/**
+	 * Compare bus routes by name
+	 */
+    @Override
+    public int compareTo(BusRoute other) {
+        return name.compareTo(other.name);
+    }
+	
+	
+}

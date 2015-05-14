@@ -1,0 +1,55 @@
+package ca.ubc.cpsc210.nextbus.translink;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+
+import ca.ubc.cpsc210.nextbus.model.BusStop;
+
+/**
+ * XML parser for bus location information received from Translink service.
+ */
+public class BusLocationParser extends AbstractTranslinkParser {
+	private BusStop busStop;
+	private StringBuffer accumulator;
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param busStop  the bus stop to which bus location information will be added
+	 */
+	public BusLocationParser(BusStop busStop) {
+		this.busStop = busStop;
+	}
+	
+	@Override
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) throws SAXException {
+		System.out.println("Start Element: " + qName);
+		accumulator.setLength(0);
+	}
+	
+	@Override
+	public void endDocument() throws SAXException {
+		super.endDocument();
+	}
+	
+	
+	@Override
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+		System.out.println("EndElement: " + qName + " value: " + accumulator.toString().trim());
+		if (qName.equalsIgnoreCase("Bus"))
+			
+			// STOPPED HERE - FINISH UP BY CREATING A NEW INSTANCE OF A BUS LOCATION
+			// WHEN CREATED ALL BUS LOCATIONS, ADD THEM INTO THE BUSLOCATIONS LIST FIELD IN BUSTOP CLASS
+		
+		
+		
+	}
+	
+	@Override
+	public void characters(char[] ch, int start, int length)
+			throws SAXException {
+		accumulator.append(ch, start, length);
+	}
+}

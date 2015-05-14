@@ -1,0 +1,47 @@
+package ca.ubc.cpsc210.nextbus.translink;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import ca.ubc.cpsc210.nextbus.model.BusRoute;
+
+/**
+ * Parser for KML files that contain bus route data received from Translink service.
+ */
+public class KMLParser extends DefaultHandler {
+	private BusRoute route;
+	/**
+	 * Constructor
+	 * @param route  the route to which parsed route segments are to be added
+	 */
+	public KMLParser(BusRoute route) {
+		this.route = route;
+	}
+
+	@Override
+	public void endDocument() throws SAXException {
+		super.endDocument();
+		
+	}
+
+	@Override
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) throws SAXException {
+		super.startElement(uri, localName, qName, attributes);
+		
+	}
+
+	@Override
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+		super.endElement(uri, localName, qName);
+		
+	}
+
+	@Override
+	public void characters(char[] ch, int start, int length)
+			throws SAXException {
+
+	}
+}

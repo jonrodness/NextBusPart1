@@ -1,0 +1,50 @@
+package ca.ubc.cpsc210.tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.ubc.cpsc210.nextbus.model.BusLocation;
+import ca.ubc.cpsc210.nextbus.model.BusRoute;
+import ca.ubc.cpsc210.nextbus.util.LatLon;
+
+public class BusLocationTest {
+	
+	BusRoute routeA = new BusRoute();
+	BusLocation location;
+	
+	
+	@Before
+	public void setup(){
+		location = new BusLocation(routeA, -123.0, 49.0, "UBC", "3:00:00");	
+	}
+
+	@Test
+	public void testGetRoute() {
+		assertEquals(location.getRoute(), routeA);
+	}
+	
+	@Test
+	public void testGetLatLon() {
+		LatLon latlon = new LatLon(-123.0, 49.0);
+		assertEquals(location.getLatLon(), latlon);
+	}
+	
+	@Test
+	public void testGetDestination() {
+		assertEquals(location.getDestination(), "UBC");
+	}
+	
+	@Test
+	public void testGetTime() {
+		assertEquals(location.getTime(), "3:00:00");
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals(location.getDescription(), "Destination: UBC Location at: 3:00:00");
+	}
+	
+
+}

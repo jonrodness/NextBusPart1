@@ -1,0 +1,58 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+
+/**
+ * Wait time estimate at a particular stop for a particular bus serving a route
+ */
+public class BusWaitTime implements Comparable<BusWaitTime> {
+	private BusRoute route;
+	private int waitTime;
+	private boolean isCancelled;
+	
+	public BusWaitTime(BusRoute route, int estimate, boolean cancelledStatus) {
+		// STUB
+	}
+	
+	public BusRoute getRoute() {
+		return null;// STUB
+	}
+	
+	public int getEstimate() {
+		return 0;// STUB
+	}
+	
+	public boolean isCancelled() {
+		return false;// STUB
+	}
+	
+	@Override
+	public java.lang.String toString() {
+		 return null;// STUB
+	}
+	
+	@Override
+	public int hashCode() {
+		return 0;// STUB
+	}
+	
+	@Override
+	public boolean equals(java.lang.Object obj) {
+		return false;// STUB
+	}
+	
+	/**
+	 * Compare this wait time to another.  Buses with the same wait times and cancelled status 
+	 * are ordered by route.  If wait times are the same but cancelled status is different,
+	 * cancelled services are ordered before those that are not cancelled.  Otherwise,  
+	 * ordered by increasing wait time.
+	 */
+    @Override
+    public int compareTo(BusWaitTime other) {
+        if(waitTime == other.waitTime && isCancelled == other.isCancelled)
+            return this.route.compareTo(other.route);
+        else if (waitTime == other.waitTime)
+        	return (isCancelled ? -1 : 1);
+        else
+            return waitTime - other.waitTime;
+    }
+}

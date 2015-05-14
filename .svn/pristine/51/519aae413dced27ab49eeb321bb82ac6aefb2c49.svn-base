@@ -1,0 +1,76 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+import ca.ubc.cpsc210.nextbus.util.LatLon;
+
+
+/**
+ * Bus stop information including stop number, description, location (lat/lon),
+ * bus routes serving this stop, estimated wait times for buses serving this stop
+ * and bus locations for buses serving this stop.
+ */
+public class BusStop {
+	
+	
+	
+	public BusStop(int stopNum, java.lang.String location, double lat, double lon, 
+			java.util.Set<BusRoute> routes) {
+		// STUB
+	}
+	
+	public int getStopNum(){
+		return 0;// STUB
+	}
+	
+	public java.lang.String getLocationDesc(){
+		return null;// STUB
+	}
+	
+	public LatLon getLatLon() {
+		return null;// STUB
+	}
+	
+	public java.util.Set<BusWaitTime> getWaitTimes() {
+		return null;// STUB
+	}
+	
+	public BusRoute getRouteNamed(java.lang.String routeName) {
+		return null;// STUB
+	}
+	
+	public void addWaitTime(BusWaitTime bwt) {
+		// STUB
+	}
+	
+	public void clearWaitTimes() {
+		// STUB
+	}
+	
+	public void addBusLocation(BusLocation bl) {
+		// STUB
+	}
+	
+	public void clearBusLocations() {
+		// STUB
+	}
+	
+	public java.util.List<BusLocation> getBusLocations() {
+		return null;// STUB
+	}
+	
+	@Override
+	public java.lang.String toString() {
+		return null;// STUB
+	}
+	
+	@Override
+	public int hashCode() {
+		return 0;// STUB
+	}
+	
+	@Override
+	public boolean equals(java.lang.Object obj) {
+		return false;// STUB
+	}
+	
+	
+}

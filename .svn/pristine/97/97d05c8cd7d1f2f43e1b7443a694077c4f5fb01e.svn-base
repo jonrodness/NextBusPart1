@@ -1,0 +1,98 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import ca.ubc.cpsc210.nextbus.util.LatLon;
+
+
+/**
+ * Bus stop information including stop number, description, location (lat/lon),
+ * bus routes serving this stop, estimated wait times for buses serving this stop
+ * and bus locations for buses serving this stop.
+ */
+public class BusStop {
+	
+	private LatLon latlon;
+	private List<BusLocation> busLocations; // HELP - APPARENT TYPE LIST?
+	private Set<BusRoute> routes; // HELP - APPARENT TYPE SET?
+	private Set<BusWaitTime> waitTimes; // HELP - APPARENT TYPE SET?
+	private int stopNum;
+	private java.lang.String location;
+	
+	
+	public BusStop(int stopNum, java.lang.String location, double lat, double lon, 
+			java.util.Set<BusRoute> routes) {
+		latlon = new LatLon(lat, lon);
+		busLocations = new LinkedList<BusLocation>(); // HELP - ACTUAL TYPE LINKEDLIST?
+		this.routes = routes; // HELP - CORRECT ASSIGNMENT?
+		waitTimes = new HashSet<BusWaitTime>(); // HELP - ACTUAL TYPE HASHSET?
+		this.stopNum = stopNum;
+		this.location = location;
+	}
+	
+	public int getStopNum(){
+		return stopNum;
+	}
+	
+	public java.lang.String getLocationDesc(){
+		return location;
+	}
+	
+	public LatLon getLatLon() {
+		return latlon;
+	}
+	
+	public java.util.Set<BusWaitTime> getWaitTimes() {
+		return waitTimes;
+	}
+	
+	public BusRoute getRouteNamed(java.lang.String routeName) { // HELP - METHOD WON'T COMPILE - USE HASHSET SEARCH OR LIST SEARCH?
+		for (BusRoute r : routes) {
+		if (r.toString().contains(routeName))
+			return r;
+		else
+			return null; // STUB
+		}
+		
+	}
+	
+	public void addWaitTime(BusWaitTime bwt) {
+		// STUB
+	}
+	
+	public void clearWaitTimes() {
+		// STUB
+	}
+	
+	public void addBusLocation(BusLocation bl) {
+		// STUB
+	}
+	
+	public void clearBusLocations() {
+		// STUB
+	}
+	
+	public java.util.List<BusLocation> getBusLocations() {
+		return null;// STUB
+	}
+	
+	@Override
+	public java.lang.String toString() {
+		return null;// STUB
+	}
+	
+	@Override
+	public int hashCode() {
+		return 0;// STUB
+	}
+	
+	@Override
+	public boolean equals(java.lang.Object obj) {
+		return false;// STUB
+	}
+	
+	
+}

@@ -1,0 +1,10 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+
+/**
+ * Bus location information for a bus serving a particular stop, including route, position (lat/lon),
+ * destination, time at which location was last updated.
+ */ 
+public class BusLocation {
+	
+}

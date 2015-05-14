@@ -1,0 +1,47 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+import ca.ubc.cpsc210.nextbus.util.LatLon;
+
+
+/**
+ * Bus location information for a bus serving a particular stop, including route, position (lat/lon),
+ * destination, time at which location was last updated.
+ */ 
+public class BusLocation {
+	
+	private BusRoute route;
+	private LatLon latlon;
+	private java.lang.String dest;
+	
+	private java.lang.String time;
+	
+	
+	public BusLocation(BusRoute route, double lat, double lon, java.lang.String dest, 
+			java.lang.String time) {
+		this.route = route;
+		this.latlon = new LatLon(lat, lon);
+		this.dest = dest;
+		this.time = time;
+	}
+		
+	public BusRoute getRoute() { // HELP - DO WE NEED JAVA DOCS FOR ALL METHODS? IS THIS NOW THE REPLACEMENT FOR REQUIRES EFFECTS MOD CLAUSES?
+		return route;
+	}
+	
+	public LatLon getLatLon() {
+		return latlon;
+	}
+	
+	public java.lang.String getDestination() {
+		return dest;
+	}
+	
+	public java.lang.String getTime() {
+		return time;
+	}
+	
+	public java.lang.String getDescription() { // HELP - DO WE NEED TO ADHERE TO LINE BREAKS SEEN IN API? (ALSO FOR TOSTRING IN BUSWAITTIME)
+		return "Destination: " + dest + " Location at: " + time;
+	}
+	
+}

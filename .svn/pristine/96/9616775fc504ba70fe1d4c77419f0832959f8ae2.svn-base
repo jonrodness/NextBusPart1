@@ -1,0 +1,118 @@
+package ca.ubc.cpsc210.nextbus.translink;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+
+import ca.ubc.cpsc210.nextbus.model.BusLocation;
+import ca.ubc.cpsc210.nextbus.model.BusRoute;
+import ca.ubc.cpsc210.nextbus.model.BusStop;
+
+/**
+ * XML parser for bus location information received from Translink service.
+ */
+public class BusLocationParser extends AbstractTranslinkParser {
+	private BusStop busStop;
+	private StringBuffer accumulator = new StringBuffer();
+	private BusLocation busLocation;
+	private BusRoute route;
+	private String routeName;
+	private String latitude;
+	private String longitude;
+	private String destination;
+	private String time;
+	private Boolean latTag = false;
+	private Boolean lonTag = false;
+	private String codeBuffer;
+	private String messageBuffer;
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param busStop  the bus stop to which bus location information will be added
+	 */
+	public BusLocationParser(BusStop busStop) {
+		this.busStop = busStop;
+	}
+	
+	@Override
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) throws SAXException {
+		System.out.println("Start Element: " + qName);
+		accumulator.setLength(0);
+		if (qName.equalsIgnoreCase("Bus")) {
+			latTag = false;
+			lonTag = false;
+		}
+	}
+	
+	@Override
+	public void endDocument() throws SAXException {
+		super.endDocument();
+	}
+	
+	
+	@Override
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+		System.out.println("EndElement: " + qName + " value: " + accumulator.toString().trim());
+		if (qName.equalsIgnoreCase("RouteNo")) {
+			routeName = new String(accumulator);
+			route = new BusRoute (routeName);
+		}
+		
+		if (qName.equalsIgnoreCase("Latitude")) {
+			latitude = new String(accumulator);
+			latTag = true;
+			
+		}
+		if (qName.equalsIgnoreCase("Longitude")) {
+			longitude = new String(accumulator);
+			lonTag = true;
+		}
+		if (qName.equalsIgnoreCase("Destination")){
+			destination = new String(accumulator);
+		}
+		if (qName.equalsIgnoreCase("RecordedTime")){
+			time = new String(accumulator);
+		}
+		if (qName.equalsIgnoreCase("Bus")){
+			
+			
+			if (((busStop.getRouteNamed(route.getName()) != null)) && latTag && lonTag) {
+				// makes sure busStop contains route with name equal to that parsed for busLocation and that 
+				// lat and lon are specified
+				busLocation = new BusLocation(route, Double.parseDouble(latitude), 
+						Double.parseDouble(longitude), destination, time);
+				// create new busLocation
+				busStop.addBusLocation(busLocation);
+				// add new busLocation to busStop
+			}
+		}	
+		if (qName.equalsIgnoreCase("Code")) {
+			codeBuffer = new String(accumulator);
+			
+		}
+		if (qName.equalsIgnoreCase("Message")) {
+			messageBuffer = new String(accumulator);
+		}
+		if (qName.equalsIgnoreCase("Error")) {
+			this.code = Integer.parseInt(codeBuffer);
+			this.message = messageBuffer;
+			this.isError = true;
+		}
+	}
+			
+			
+
+	
+	@Override
+	public void characters(char[] ch, int start, int length)
+			throws SAXException {
+		accumulator.append(ch, start, length);
+	}
+
+	
+
+}
+
+

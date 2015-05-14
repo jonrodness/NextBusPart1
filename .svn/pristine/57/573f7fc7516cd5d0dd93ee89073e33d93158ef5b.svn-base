@@ -1,0 +1,67 @@
+package ca.ubc.cpsc210.tests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.ubc.cpsc210.exception.TranslinkException;
+import ca.ubc.cpsc210.nextbus.model.BusLocation;
+import ca.ubc.cpsc210.nextbus.model.BusRoute;
+import ca.ubc.cpsc210.nextbus.model.BusStop;
+import ca.ubc.cpsc210.nextbus.model.BusWaitTime;
+import ca.ubc.cpsc210.nextbus.translink.ITranslinkService;
+import ca.ubc.cpsc210.nextbus.translink.TranslinkStub;
+import ca.ubc.cpsc210.nextbus.util.BoundingBox;
+import ca.ubc.cpsc210.nextbus.util.LatLon;
+import ca.ubc.cpsc210.nextbus.util.Segment;
+
+public class TranslinkTests {
+    public static final int BUS_STOP = 0;
+    public static final int STOP_ESTIMATES = 1;
+    public static final int BUS_LOCATIONS = 2;
+    public static final int BUS_ROUTE = 3;
+    private static final int NUM_FILES = 4; 
+    private static final double DELTA = 1.0e-9;
+    
+    private ITranslinkService translink;
+    
+    @Before
+    public void setUp() throws Exception {
+        List<File> dataFiles = new ArrayList<File>(NUM_FILES);
+        initFiles(dataFiles);
+        translink = new TranslinkStub(dataFiles);
+    }
+    
+    private void initFiles(List<File> dataFiles) {
+        dataFiles.add(BUS_STOP, new File("TestFiles/Student/busStop50319.xml"));
+        dataFiles.add(STOP_ESTIMATES, new File("TestFiles/Student/busStopEstimates50319.xml"));
+        dataFiles.add(BUS_LOCATIONS, new File("TestFiles/Student/busLocationsForStop50319.xml"));
+        dataFiles.add(BUS_ROUTE, new File("TestFiles/Student/busRoute009.kmz"));
+    }
+    
+    @Test
+    public void testGetBusStopFromTranslink() throws TranslinkException {
+        BusStop stop = translink.getBusStop("50319");
+        assertEquals(50319, stop.getStopNum());
+        assertEquals(new LatLon(49.263990, -123.167350), stop.getLatLon());
+        assertEquals("EB W BROADWAY FS MACDONALD ST", stop.getLocationDesc());
+        assertEquals(null, stop.getRouteNamed("044"));
+        BusRoute route = stop.getRouteNamed("009");
+        assertEquals("009", route.getName());
+        assertEquals(null, route.getMapURL());
+        assertFalse(route.hasSegments());
+        route = stop.getRouteNamed("N17");
+        assertEquals("N17", route.getName());
+        assertEquals(null, route.getMapURL());
+        assertFalse(route.hasSegments());        
+    }
+}

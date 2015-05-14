@@ -1,0 +1,114 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import ca.ubc.cpsc210.nextbus.util.BoundingBox;
+import ca.ubc.cpsc210.nextbus.util.Segment;
+
+
+/**
+ * A bus route
+ */
+public class BusRoute implements Comparable<BusRoute> {
+	private String name;
+	private BoundingBox bounds;		
+	private List<Segment> segments;
+	private java.lang.String url; // HELP - WHERE DOES THIS URL COME FROM? 
+
+	
+	public BusRoute() {
+		this.name = "unknown";
+		this.bounds = new BoundingBox();
+		this.segments = new LinkedList<Segment>();
+		this.url = null; // HELP - URL
+	}
+	
+	public BusRoute(java.lang.String name) {
+		this.name = name;
+		this.bounds = new BoundingBox();
+		this.segments = new LinkedList<Segment>();
+		this.url = null; // HELP - URL
+	}
+	
+	
+	public java.lang.String getName() {
+		return this.name;
+	}
+	
+	public void setName(java.lang.String name) {
+		this.name = name;
+	}
+	
+	public java.lang.String getMapURL() { // HELP - URL
+		return this.url; 
+	}
+	
+	public void setMapURL(java.lang.String mapURL) { // HELP - URL
+		this.url = mapURL;
+	}
+	
+	public void setBounds(double north, double south, double east, double west) {
+		this.bounds = new BoundingBox(north, south, east, west); 
+	}
+	
+	public BoundingBox getBounds() {
+		return this.bounds;
+	}
+	
+	public void addSegment(Segment seg) {
+		segments.add(seg);
+	}
+	
+	public boolean hasSegments() { // HELP - THROW EXCEPTION?
+		if (segments.size() > 0)
+		return true;
+		else
+			return false;
+	}
+	
+	public java.util.List<Segment> getSegments() {
+		return segments;
+	}
+	
+	@Override
+	public java.lang.String toString() { // HELP - SAME AS GETNAME()?
+		return this.name;
+	}
+	
+	
+	/**
+	 * Compare bus routes by name
+	 */
+    @Override
+    public int compareTo(BusRoute other) { // HELP - DO WE NEED TESTS FOR THIS?
+        return name.compareTo(other.name);
+    }
+
+	@Override
+	public int hashCode() { // HELP - DO WE NEED TESTS FOR THIS AND EQUALS?
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override // HELP - WHY DOES JAVA.LANG  PREFIX SO MANY TYPES AND IS IT NECESSARY?
+	public boolean equals(java.lang.Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BusRoute other = (BusRoute) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	
+}

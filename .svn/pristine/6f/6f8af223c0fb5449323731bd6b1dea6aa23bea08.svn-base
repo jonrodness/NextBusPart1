@@ -1,0 +1,47 @@
+package ca.ubc.cpsc210.tests;
+
+import static org.junit.Assert.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.ubc.cpsc210.nextbus.model.BusRoute;
+import ca.ubc.cpsc210.nextbus.model.BusStop;
+import ca.ubc.cpsc210.nextbus.util.LatLon;
+
+public class BusStopTest {
+	
+	BusStop stopA;
+	
+	@Before
+	public void setup() {
+		Set<BusRoute> routes = new HashSet<BusRoute>();
+		stopA = new BusStop(1, "UBC Bus Loop 6", -123.0, 49.0, routes);
+	}
+	
+
+	@Test
+	public void testGetStopNum() {
+		assertTrue(stopA.getStopNum() == 1);
+	}
+	
+	@Test
+	public void testGetLocationDesc() {
+		assertEquals(stopA.getLocationDesc(), "UBC Bus Loop 6");
+	}
+	
+	@Test
+	public void testGetLatLon() {                  // HELP - WHY DOES THIS TEST NOT PASS IF LATLON EQUALS IS OVERRIDDEN?
+		assertEquals(stopA.getLatLon(), new LatLon(-123.0, -49.0));
+	}
+	
+	@Test
+	public void testGetWaitTimes() {
+		assertTrue(stopA.getWaitTimes().size() == 0);
+	}
+	
+
+}

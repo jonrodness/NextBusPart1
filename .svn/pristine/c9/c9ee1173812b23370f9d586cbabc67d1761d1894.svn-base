@@ -1,0 +1,93 @@
+package ca.ubc.cpsc210.nextbus.model;
+
+
+/**
+ * Wait time estimate at a particular stop for a particular bus serving a route
+ */
+public class BusWaitTime implements Comparable<BusWaitTime> {
+	private BusRoute route;
+	private int estimate;
+	private boolean cancelledStatus;
+	
+	public BusWaitTime(BusRoute route, int estimate, boolean cancelledStatus) {
+		this.route = route;
+		this.estimate = estimate;
+		this.cancelledStatus = cancelledStatus;
+	}
+	
+	public BusRoute getRoute() {
+		return route;
+	}
+	
+	public int getEstimate() {
+		return estimate;
+	}
+	
+	public boolean isCancelled() {
+		return cancelledStatus;
+	}
+	
+	@Override
+	public java.lang.String toString() { // HELP - DO WE NEED LINE BREAKS? WHY DOES IT SAY ANGLE BRACKETS ON PIAZZA AND I CAN'T SEE THEM IN THE JAVA DOC - UPDATE FOR TOSTRING FOR ALL OTHER CLASSES
+		if (this.isCancelled()) {
+			if (estimate < 2)
+				return route.toString() + ": NOW - cancelled";
+			else
+				return route.toString() + ": " + Integer.toString(estimate) + " mins - cancelled";
+		}
+		else {
+			if (estimate < 2)
+				return route.toString() + ": NOW";
+			else
+				return route.toString() + ": " + Integer.toString(estimate) + " mins";
+		}
+	}
+	
+	
+	/**
+	 * Compare this wait time to another.  Buses with the same wait times and cancelled status 
+	 * are ordered by route.  If wait times are the same but cancelled status is different,
+	 * cancelled services are ordered before those that are not cancelled.  Otherwise,  
+	 * ordered by increasing wait time.
+	 */
+    @Override
+    public int compareTo(BusWaitTime other) {
+        if(estimate == other.estimate && cancelledStatus == other.cancelledStatus)
+            return this.route.compareTo(other.route);
+        else if (estimate == other.estimate)
+        	return (cancelledStatus ? -1 : 1);
+        else
+            return estimate - other.estimate;
+    }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (cancelledStatus ? 1231 : 1237);
+		result = prime * result + ((route == null) ? 0 : route.hashCode());
+		result = prime * result + estimate;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BusWaitTime other = (BusWaitTime) obj;
+		if (cancelledStatus != other.cancelledStatus)
+			return false;
+		if (route == null) {
+			if (other.route != null)
+				return false;
+		} else if (!route.equals(other.route))
+			return false;
+		if (estimate != other.estimate)
+			return false;
+		return true;
+	}
+}

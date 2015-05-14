@@ -1,0 +1,54 @@
+package ca.ubc.cpsc210.tests;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.ubc.cpsc210.nextbus.model.BusStop;
+import ca.ubc.cpsc210.nextbus.model.FavouriteStops;
+
+public class FavouriteStopsTests {
+	private FavouriteStops favourites;
+	private BusStop stop1;
+	private BusStop stop2;
+	private BusStop stop3;
+	private BusStop stop4;
+	private List<BusStop> stops;
+       
+    @Before
+    public void setUp() throws Exception {
+        favourites = FavouriteStops.getInstance();
+        favourites.clear();
+        
+        stop1 = new BusStop(1, "", 0, 0, null);
+        stop2 = new BusStop(2, "", 0, 0, null);
+        stop3 = new BusStop(3, "", 0, 0, null);
+        stop4 = new BusStop(4, "", 0, 0, null);
+        stops = new ArrayList<BusStop>();
+        stops.add(stop1);
+        stops.add(stop2);
+        stops.add(stop3);
+        stops.add(stop4);
+    }
+    
+    @Test         // HELP - NOT WORKING THE WAY IT SHOULD - SECEOND ASSERTION SHOULD EQUAL 4!!!
+    public void testGetFavourites() {
+    	
+    	assertTrue(stops.size() == 4);
+    	assertTrue(favourites.getFavourites().size() == 0);
+    }
+    
+    @Test
+    public void testConstructor() {
+    	List<BusStop> favouriteStops = favourites.getFavourites();
+    	assertEquals(0, favouriteStops.size());
+        BusStop selected = favourites.getSelectedStop();
+        assertEquals(null, selected);
+    }
+    
+
+}
